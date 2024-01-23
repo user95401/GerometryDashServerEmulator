@@ -1,3 +1,5 @@
 <?php
-include "incl/comments/uploadGJComment.php";
+require "_incl/_main.php";
+$c = new comments();
+$c->uploadGJComment();
 ?>

@@ -981,7 +981,36 @@ class mainLib {
 		$query = $db->prepare($query);
 		$query->execute([':account' => $accountID, ':level' => $levelID, ':diff' => $difficulty, ':stars' => $stars, ':feat' => $feat, ':auto' => $auto, ':demon' => $demon, ':timestamp' => time()]);
 	}
+	public function getListOwner($listID) {
+		if(!is_numeric($listID)) return false;
+		include __DIR__ . "/connection.php";
+		$query = $db->prepare('SELECT accountID FROM lists WHERE listID = :id');
+		$query->execute([':id' => $listID]);
+		return $query->fetchColumn();
+	}
+	public function getListLevels($listID) {
+		if(!is_numeric($listID)) return false;
+		include __DIR__ . "/connection.php";
+		$query = $db->prepare('SELECT listlevels FROM lists WHERE listID = :id');
+		$query->execute([':id' => $listID]);
+		return $query->fetchColumn();
+	}
+	public function getListDiffName($diff) {
+		if($diff == -1) return 'N/A';
+		$diffs = ['Auto', 'Easy', 'Normal', 'Hard', 'Harder', 'Extreme', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon', 'Extreme Demon'];
+		return $diffs[$diff];
+	}
+	public function getListName($listID) {
+		if(!is_numeric($listID)) return false;
+		include __DIR__ . "/connection.php";
+		$query = $db->prepare('SELECT listName FROM lists WHERE listID = :id');
+		$query->execute([':id' => $listID]);
+		return $query->fetchColumn();
+	}
 }
 
 //five fingers in my ass
 include dirname(__FILE__)."/levels.php";
+include dirname(__FILE__)."/comments.php";
+include dirname(__FILE__)."/lists.php";
+include dirname(__FILE__)."/packs.php";

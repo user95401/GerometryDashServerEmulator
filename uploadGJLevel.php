@@ -1,3 +1,5 @@
 <?php
-include "incl/levels/uploadGJLevel.php";
+require "_incl/_main.php";
+$lvls = new levels();
+$lvls->uploadGJLevel();
 ?>
